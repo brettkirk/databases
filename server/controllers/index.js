@@ -8,22 +8,21 @@ module.exports = {
       res.send('hello world')
     }, // a function which handles a get request for all messages
     post: function (req, res) {
+      // models.messages.post(req, res);
       var dbConnection = mysql.createConnection({
-          user: 'root',
-          password: 'plantlife',
-          database: 'chat'
-        });
-        dbConnection.connect(function(err){
+        user: 'root',
+        password: 'plantlife',
+        database: 'chat'
+      });
+      dbConnection.connect(function(err){
+        if (err) throw err
+        dbConnection.query('INSERT INTO messages (user_id, text, room_id) VALUES (?,?,?)', [1, req.body.message, 1], function(err, result) {
           if (err) throw err
-            dbConnection.query('INSERT INTO messages (user_id, text, room_id) VALUES (?,?,?)', [18, req.body.message, 2], function(err, result) {
-              if (err) throw err
-              dbConnection.query('SELECT * FROM messages', function(err, results) {
-                if (err) throw err
-                console.log(results[0].text);
-              })
-            })
-          // }
-        // })
+          dbConnection.query('SELECT * FROM messages', function(err, results) {
+            if (err) throw err
+            console.log(results[0].text);
+          })
+        })
       })
       res.end('much win!');
     } // a function which handles posting a message to the database
