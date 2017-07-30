@@ -11,7 +11,7 @@ CREATE TABLE messages (
   `room_id` INTEGER NULL,
   `text` VARCHAR(255) NULL,
   `user_id` INTEGER NULL,
-  `created_at` TIMESTAMP NULL,
+  `created_at` VARCHAR(20) NULL,
   PRIMARY KEY (`id`)
 );
 
